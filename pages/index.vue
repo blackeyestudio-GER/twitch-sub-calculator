@@ -47,7 +47,7 @@
                         <input v-model.number="subs.tier3" type="number" min="0" class="w-full p-2 rounded text-black" />
                     </div>
                     <div class="md:col-start-3">
-                        <label class="block text-sm mb-1">Bits (100 Bits = 1 €)</label>
+                        <label class="block text-sm mb-1">Bits (100 Bits = {{ prices.bits }} €)</label>
                         <input v-model.number="bits" type="number" min="0" class="w-full p-2 rounded text-black" />
                     </div>
                 </div>
@@ -98,13 +98,22 @@ const prices = {
     tier1: 4.99,
     tier2: 7.99,
     tier3: 19.99,
+    bits: 1.59,
 };
 
-const revenueSplit = {
+const revenueSplitTwitch = {
     prime: 0.50,
     tier1: 0.50,
     tier2: 0.50,
-    tier3: 0.50, // kann bei Partnern variieren
+    tier3: 0.50,
+    bits: 0.20,
+};
+const revenueSplitStreamer = {
+    prime: 0.50,
+    tier1: 0.50,
+    tier2: 0.50,
+    tier3: 0.50,
+    bits: 0.80,
 };
 
 const totals = computed(() => {
@@ -113,16 +122,21 @@ const totals = computed(() => {
             subs.tier1 * prices.tier1 +
             subs.tier2 * prices.tier2 +
             subs.tier3 * prices.tier3 +
-            (bits.value / 100);
+            bits.value / 100 * prices.bits;
 
     const streamerShare =
-            subs.prime * prices.prime * revenueSplit.prime +
-            subs.tier1 * prices.tier1 * revenueSplit.tier1 +
-            subs.tier2 * prices.tier2 * revenueSplit.tier2 +
-            subs.tier3 * prices.tier3 * revenueSplit.tier3 +
-            (bits.value / 100);
+            subs.prime * prices.prime * revenueSplitStreamer.prime +
+            subs.tier1 * prices.tier1 * revenueSplitStreamer.tier1 +
+            subs.tier2 * prices.tier2 * revenueSplitStreamer.tier2 +
+            subs.tier3 * prices.tier3 * revenueSplitStreamer.tier3 +
+            bits.value / 100 * prices.bits * revenueSplitStreamer.bits;
 
-    const twitchShare = userTotal - streamerShare;
+    const twitchShare =
+            subs.prime * prices.prime * revenueSplitTwitch.prime +
+            subs.tier1 * prices.tier1 * revenueSplitTwitch.tier1 +
+            subs.tier2 * prices.tier2 * revenueSplitTwitch.tier2 +
+            subs.tier3 * prices.tier3 * revenueSplitTwitch.tier3 +
+            bits.value / 100 * prices.bits * revenueSplitTwitch.bits;
 
     return {
         user: userTotal,
