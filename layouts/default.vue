@@ -1,9 +1,11 @@
 <template>
   <div>
     <NuxtLoadingIndicator :throttle="0" :height="2" />
-    <AppHeader />
     <div class="mx-2 max-w-screen-2xl lg:mx-auto my-2">
       <slot />
+    </div>
+    <div class="absolute right-0">
+        <AdBannerRight />
     </div>
     <AppFooter />
   </div>
@@ -11,7 +13,7 @@
 
 <script setup lang="ts">
 useHead({
-  titleTemplate: (title) => title ? `${title} - template` : 'template',
+  titleTemplate: 'Twitch - Sub - Calculator',
 })
 </script>
 <style scoped>
