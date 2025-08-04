@@ -21,14 +21,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  head: {
-    script: [
-      {
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
-        async: true,
-        crossorigin: "anonymous"
-      }
-    ]
-  },
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/eslint"]
+  modules: [
+      "@nuxtjs/tailwindcss",
+      "@nuxt/eslint",
+      "@nuxtjs/google-adsense",
+  ],
+
+  googleAdsense: {
+    id: 'ca-pub-#########'
+  }
 })
