@@ -28,6 +28,6 @@ export default defineNuxtConfig({
   ],
 
   googleAdsense: {
-    id: 'ca-pub-#########'
+    id: 'ca-pub-4277903766631766'
   }
 })
